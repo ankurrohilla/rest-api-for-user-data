@@ -8,13 +8,16 @@ Rest Api for managing user’s data using Django and DRF
     $ cd rest-api-for-user-data/
     
 
+
 * With Docker
     
+
     $ docker-compose up
+
 
 * without Docker 
 
-    $  python3 -m venv env
+
     
     $  source env/bin/activate
     
@@ -34,4 +37,6 @@ Rest Api for managing user’s data using Django and DRF
  
 # Also you can see demo ready heroku app :
 
+
  [Heroku App API](https://drf-api-users.herokuapp.com/api/users/)
+
