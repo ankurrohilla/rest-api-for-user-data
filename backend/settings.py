@@ -55,7 +55,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [str(BASE_DIR / "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,6 +72,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+USE_DOCKER = env.str('USE_DOCKER',default='NO')
 if DEBUG:
     DATABASES = {
         'default': {
@@ -79,6 +80,18 @@ if DEBUG:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+    if USE_DOCKER == 'YES':
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': 'postgres',
+                'USER': 'postgres',
+                'HOST': 'db',  # set in docker-compose.yml
+                'PORT': 5432  # default postgres port
+            }
+        }
+    ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
+
 else:
     DATABASES = dict()
     DATABASES["default"] = env.db("DATABASE_URL")  # noqa F405

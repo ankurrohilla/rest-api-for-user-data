@@ -1,0 +1,25 @@
+version: '3'
+
+volumes:
+  postgres_data:
+
+services:
+  django:
+    build: .
+    environment:
+      - "USE_DOCKER=YES"
+    command: /start
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+
+  db:
+    image: "postgres:11"
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+      - "USE_DOCKER=YES"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/

@@ -9,6 +9,7 @@ from rest_framework.serializers import ValidationError
 
 from .models import User
 from .serializers import UserSerializer
+from django.shortcuts import render
 
 
 class StandardResultsSetPagination(pagination.PageNumberPagination):
@@ -77,3 +78,7 @@ class UserViewSet(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         response_data = {}  # serializer.data
         return Response(data=response_data, status=status.HTTP_201_CREATED, headers=headers)
+
+
+def home(request):
+    return render(request,template_name='home.html')
