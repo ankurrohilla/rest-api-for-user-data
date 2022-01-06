@@ -18,6 +18,7 @@ Rest Api for managing user’s data using Django and DRF
 * without Docker 
 
 
+    $ python3 -m venv env
     
     $  source env/bin/activate
     
