@@ -9,10 +9,14 @@ class Command(BaseCommand):
     URL = 'https://datapeace-storage.s3-us-west-2.amazonaws.com/dummy_data/users.json'
 
     def handle(self, *args, **options):
-        r = requests.get(self.URL)
-        users = [User(**u) for u in r.json()]
+        if User.objects.exists():
+            msg = 'Already {} users exists.'.format(User.objects.all().count())
+            self.stdout.write(self.style.SUCCESS(msg))
+        else:
+            r = requests.get(self.URL)
+            users = [User(**u) for u in r.json()]
 
-        User.objects.bulk_create(users)
+            User.objects.bulk_create(users)
 
-        msg = 'Adding {} users.'.format(User.objects.all().count())
-        self.stdout.write(self.style.SUCCESS(msg))
+            msg = 'Adding {} users.'.format(User.objects.all().count())
+            self.stdout.write(self.style.SUCCESS(msg))
