@@ -80,6 +80,7 @@ if DEBUG:
         }
     }
 else:
+    DATABASES = dict()
     DATABASES["default"] = env.db("DATABASE_URL")  # noqa F405
     ALLOWED_HOSTS = ['.herokuapp.com']
     # https://docs.djangoproject.com/en/dev/ref/settings/#secure-proxy-ssl-header
